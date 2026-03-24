@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Edit } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -38,7 +39,7 @@ export default function EditMenuItemButton({ item }: EditMenuItemButtonProps) {
     setIsSaving(true);
 
     const formData = new FormData(e.currentTarget);
-    
+
     const name = formData.get("name") as string;
     const description = formData.get("description") as string;
     const price = parseFloat(formData.get("price") as string) || 0;
@@ -60,10 +61,11 @@ export default function EditMenuItemButton({ item }: EditMenuItemButtonProps) {
 
     if (error) {
       console.error("Error updating item:", error);
-      // In a real app, you might want to show a toast notification here
+      toast.error("حدث خطأ أثناء التعديل");
       return;
     }
 
+    toast.success("تم التعديل بنجاح");
     setIsOpen(false);
     router.refresh();
   };

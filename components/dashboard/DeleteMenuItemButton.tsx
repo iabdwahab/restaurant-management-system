@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Trash2 } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
@@ -39,10 +40,11 @@ export default function DeleteMenuItemButton({
 
     if (error) {
       console.error("Error deleting item:", error);
-      // In a real app, you might want to show a toast notification here
+      toast.error("حدث خطأ أثناء الحذف");
       return;
     }
 
+    toast.success("تم الحذف بنجاح");
     // Refresh the current route to fetch the updated list
     router.refresh();
   };
