@@ -16,7 +16,7 @@ export default function ProductCard({ item }: ProductCardProps) {
     >
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
         <img
-          src={item.image_url || "https://placehold.net/600x400"}
+          src={item.image_url || "https://placehold.net/default.png"}
           alt={item.name}
           className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
         />
