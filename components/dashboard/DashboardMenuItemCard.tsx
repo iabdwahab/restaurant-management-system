@@ -1,6 +1,7 @@
 import { Edit, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Database } from "@/types/supabase";
+import DeleteMenuItemButton from "./DeleteMenuItemButton";
 
 type MenuItem = Database["public"]["Tables"]["menu_items"]["Row"];
 
@@ -57,14 +58,7 @@ export default function DashboardMenuItemCard({
             <Edit className="w-4 h-4" />
             تعديل
           </Button>
-          <Button
-            variant="outline"
-            className="flex-1 gap-2 border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground dark:bg-transparent"
-            size="sm"
-          >
-            <Trash2 className="w-4 h-4" />
-            حذف
-          </Button>
+          <DeleteMenuItemButton id={item.id} name={item.name} />
         </div>
       </div>
     </div>
