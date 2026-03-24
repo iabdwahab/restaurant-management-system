@@ -9,6 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -60,9 +61,11 @@ function EditIngredientButton({ ingredient }: { ingredient: Ingredient }) {
 
     if (!error) {
       setIsOpen(false);
+      toast.success("تم التعديل بنجاح");
       router.refresh();
     } else {
       console.error("Error updating ingredient:", error);
+      toast.error("حدث خطأ أثناء التعديل");
     }
   };
 
@@ -142,9 +145,11 @@ function DeleteIngredientButton({ id, name }: { id: string; name: string }) {
 
     if (!error) {
       setIsOpen(false);
+      toast.success("تم الحذف بنجاح");
       router.refresh();
     } else {
       console.error("Error deleting ingredient:", error);
+      toast.error("حدث خطأ أثناء الحذف");
     }
   };
 
@@ -209,9 +214,11 @@ export default function IngredientCard({ ingredient }: IngredientCardProps) {
     setShowToggleModal(false);
 
     if (!error) {
+      toast.success("تم تغيير الحالة بنجاح");
       router.refresh();
     } else {
       console.error("Error updating ingredient status:", error);
+      toast.error("حدث خطأ أثناء تغيير الحالة");
     }
   };
 

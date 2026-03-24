@@ -3,6 +3,7 @@ import { Cairo } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { DirectionProvider } from "@/components/ui/direction";
+import { Toaster } from "sonner";
 
 const cairo = Cairo({ subsets: ["arabic"], variable: "--font-cairo" });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", cairo.className)}
     >
       <body className="min-h-full flex flex-col">
+        <Toaster position="top-center" />
         <DirectionProvider dir="rtl">{children}</DirectionProvider>
       </body>
     </html>
