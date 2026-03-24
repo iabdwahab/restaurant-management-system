@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import IngredientCard from "@/components/dashboard/IngredientCard";
+import AddIngredientButton from "@/components/dashboard/AddIngredientButton";
 
 export default async function IngredientsPage() {
   const supabase = await createClient();
@@ -13,7 +14,8 @@ export default async function IngredientsPage() {
   return (
     <div dir="rtl">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">المكونات</h1>
+        <h1 className="text-2xl font-bold">المكونات ({ingredients?.length})</h1>
+        <AddIngredientButton />
       </div>
 
       {error ? (

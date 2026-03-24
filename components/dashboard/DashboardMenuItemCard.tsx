@@ -19,7 +19,7 @@ export default function DashboardMenuItemCard({
     >
       <div className="relative aspect-video w-full overflow-hidden bg-muted">
         <img
-          src={item.image_url || "https://placehold.net/400x300"}
+          src={item.image_url || "https://placehold.net/default.png"}
           alt={item.name}
           className="object-cover w-full h-full"
         />

@@ -1,15 +1,17 @@
 import DashboardMenuItemCard from "@/components/dashboard/DashboardMenuItemCard";
+import AddMenuItemButton from "@/components/dashboard/AddMenuItemButton";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function ItemsPage() {
   const supabase = await createClient();
   const { data } = await supabase.from("menu_items").select("*");
 
-  console.log(data);
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">الأصناف</h1>
-      {/* TODO: Add Items Content */}
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">الأصناف ({data?.length || 0})</h1>
+        <AddMenuItemButton />
+      </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {data?.map((item) => (
