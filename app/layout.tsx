@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { DirectionProvider } from "@/components/ui/direction";
 import { Toaster } from "sonner";
+import Header from "@/components/Header";
 
 const cairo = Cairo({ subsets: ["arabic"], variable: "--font-cairo" });
 
@@ -25,7 +26,10 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <Toaster position="top-center" />
-        <DirectionProvider dir="rtl">{children}</DirectionProvider>
+        <DirectionProvider dir="rtl">
+          <Header />
+          {children}
+        </DirectionProvider>
       </body>
     </html>
   );
