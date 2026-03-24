@@ -30,18 +30,20 @@ export default function EditMenuItemButton({ item }: EditMenuItemButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
-  const [name, setName] = useState(item.name);
-  const [description, setDescription] = useState(item.description || "");
-  const [price, setPrice] = useState(item.price);
-  const [imageUrl, setImageUrl] = useState(item.image_url || "");
-  const [isAvailable, setIsAvailable] = useState(item.is_available ?? true);
-
   const router = useRouter();
   const supabase = createClient();
 
-  const handleUpdate = async (e: React.FormEvent) => {
+  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSaving(true);
+
+    const formData = new FormData(e.currentTarget);
+    
+    const name = formData.get("name") as string;
+    const description = formData.get("description") as string;
+    const price = parseFloat(formData.get("price") as string) || 0;
+    const image_url = (formData.get("imageUrl") as string) || null;
+    const is_available = formData.get("isAvailable") === "on";
 
     const { error } = await supabase
       .from("menu_items")
@@ -49,8 +51,8 @@ export default function EditMenuItemButton({ item }: EditMenuItemButtonProps) {
         name,
         description,
         price,
-        image_url: imageUrl,
-        is_available: isAvailable,
+        image_url,
+        is_available,
       })
       .eq("id", item.id);
 
@@ -95,8 +97,8 @@ export default function EditMenuItemButton({ item }: EditMenuItemButtonProps) {
               </Label>
               <Input
                 id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                name="name"
+                defaultValue={item.name}
                 className="col-span-3"
                 required
               />
@@ -111,8 +113,8 @@ export default function EditMenuItemButton({ item }: EditMenuItemButtonProps) {
               </Label>
               <Textarea
                 id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                name="description"
+                defaultValue={item.description || ""}
                 className="col-span-3 resize-none"
                 rows={3}
               />
@@ -124,11 +126,11 @@ export default function EditMenuItemButton({ item }: EditMenuItemButtonProps) {
               </Label>
               <Input
                 id="price"
+                name="price"
                 type="number"
                 step="0.01"
                 min="0"
-                value={price}
-                onChange={(e) => setPrice(parseFloat(e.target.value) || 0)}
+                defaultValue={item.price}
                 className="col-span-3"
                 required
               />
@@ -143,9 +145,9 @@ export default function EditMenuItemButton({ item }: EditMenuItemButtonProps) {
               </Label>
               <Input
                 id="imageUrl"
+                name="imageUrl"
                 type="url"
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
+                defaultValue={item.image_url || ""}
                 className="col-span-3"
                 dir="ltr"
               />
@@ -161,8 +163,8 @@ export default function EditMenuItemButton({ item }: EditMenuItemButtonProps) {
               <div className="col-span-3 flex justify-start">
                 <Switch
                   id="isAvailable"
-                  checked={isAvailable}
-                  onCheckedChange={setIsAvailable}
+                  name="isAvailable"
+                  defaultChecked={item.is_available ?? true}
                   dir="rtl"
                 />
               </div>

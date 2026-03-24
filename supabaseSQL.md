@@ -2,6 +2,7 @@ CREATE TABLE ingredients (
 id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
 name TEXT NOT NULL,
 description TEXT,
+is_available BOOLEAN DEFAULT true,
 created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
