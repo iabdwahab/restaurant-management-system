@@ -349,6 +349,11 @@ export default function EditMenuItemButton({ item }: EditMenuItemButtonProps) {
                   name="isAvailable"
                   defaultChecked={item.is_available ?? true}
                   dir="rtl"
+                  disabled={ingredients.some(
+                    (ing) =>
+                      selectedIngredientIds.includes(ing.id) &&
+                      !ing.is_available,
+                  )}
                 />
               </div>
             </div>
