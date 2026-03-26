@@ -31,10 +31,13 @@ export default function EditMenuItemButton({ item }: EditMenuItemButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
-  // Ingredients state
+  // Data states
   const [ingredients, setIngredients] = useState<
     { id: string; name: string; is_available: boolean }[]
   >([]);
+  const [categories, setCategories] = useState<{ id: string; name: string }[]>(
+    [],
+  );
   const [selectedIngredientIds, setSelectedIngredientIds] = useState<string[]>(
     [],
   );
@@ -50,14 +53,23 @@ export default function EditMenuItemButton({ item }: EditMenuItemButtonProps) {
       const fetchData = async () => {
         setIsLoadingIngredients(true);
 
-        // 1. Fetch all ingredients
-        const { data: allIngredients, error: ingError } = await supabase
-          .from("ingredients")
-          .select("id, name, is_available")
-          .order("created_at", { ascending: false });
+        // 1. Fetch all ingredients & categories
+        const [ingRes, catRes] = await Promise.all([
+          supabase
+            .from("ingredients")
+            .select("id, name, is_available")
+            .order("created_at", { ascending: false }),
+          supabase
+            .from("categories")
+            .select("id, name")
+            .order("created_at", { ascending: false }),
+        ]);
 
-        if (!ingError && allIngredients) {
-          setIngredients(allIngredients);
+        if (!ingRes.error && ingRes.data) {
+          setIngredients(ingRes.data);
+        }
+        if (!catRes.error && catRes.data) {
+          setCategories(catRes.data);
         }
 
         // 2. Fetch linked ingredients
@@ -125,6 +137,7 @@ export default function EditMenuItemButton({ item }: EditMenuItemButtonProps) {
     const description = formData.get("description") as string;
     const price = parseFloat(formData.get("price") as string) || 0;
     const image_url = (formData.get("imageUrl") as string) || null;
+    const category_id = (formData.get("category") as string) || null;
     const is_available = formData.get("isAvailable") === "on";
 
     const { error } = await supabase
@@ -134,6 +147,7 @@ export default function EditMenuItemButton({ item }: EditMenuItemButtonProps) {
         description,
         price,
         image_url,
+        category_id,
         is_available,
       })
       .eq("id", item.id);
@@ -212,6 +226,28 @@ export default function EditMenuItemButton({ item }: EditMenuItemButtonProps) {
                 className="col-span-3"
                 required
               />
+            </div>
+
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label
+                htmlFor="category"
+                className="text-right whitespace-nowrap"
+              >
+                التصنيف
+              </Label>
+              <select
+                id="category"
+                name="category"
+                defaultValue={item.category_id || ""}
+                className="col-span-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <option value="">بدون تصنيف</option>
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="grid grid-cols-4 items-center gap-4">
