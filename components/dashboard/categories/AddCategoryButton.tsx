@@ -34,12 +34,10 @@ export default function AddCategoryButton() {
     const name = formData.get("name") as string;
     const description = formData.get("description") as string;
 
-    const { error } = await supabase
-      .from("categories")
-      .insert({
-        name,
-        description,
-      });
+    const { error } = await supabase.from("categories").insert({
+      name,
+      description,
+    });
 
     setIsSaving(false);
 
@@ -77,13 +75,9 @@ export default function AddCategoryButton() {
               <Label htmlFor="name" className="text-right">
                 الاسم
               </Label>
-              <Input
-                id="name"
-                name="name"
-                required
-              />
+              <Input id="name" name="name" required />
             </div>
-            
+
             <div className="grid gap-2">
               <Label htmlFor="description" className="text-right">
                 الوصف

@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
-import IngredientCard from "@/components/dashboard/IngredientCard";
-import AddIngredientButton from "@/components/dashboard/AddIngredientButton";
+import IngredientCard from "@/components/dashboard/ingredients/IngredientCard";
+import AddIngredientButton from "@/components/dashboard/ingredients/AddIngredientButton";
 
 export default async function IngredientsPage() {
   const supabase = await createClient();

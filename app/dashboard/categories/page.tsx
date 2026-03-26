@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
-import CategoryCard from "@/components/dashboard/CategoryCard";
-import AddCategoryButton from "@/components/dashboard/AddCategoryButton";
+import CategoryCard from "@/components/dashboard/categories/CategoryCard";
+import AddCategoryButton from "@/components/dashboard/categories/AddCategoryButton";
 
 export default async function CategoriesPage() {
   const supabase = await createClient();

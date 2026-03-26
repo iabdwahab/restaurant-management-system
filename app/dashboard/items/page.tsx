@@ -1,5 +1,5 @@
-import DashboardMenuItemCard from "@/components/dashboard/DashboardMenuItemCard";
-import AddMenuItemButton from "@/components/dashboard/AddMenuItemButton";
+import DashboardMenuItemCard from "@/components/dashboard/menu-item/DashboardMenuItemCard";
+import AddMenuItemButton from "@/components/dashboard/menu-item/AddMenuItemButton";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function ItemsPage() {
