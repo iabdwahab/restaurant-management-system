@@ -10,6 +10,7 @@ const navItems = [
   { name: "لوحة التحكم", href: "/dashboard", icon: Utensils },
   { name: "الأصناف", href: "/dashboard/items", icon: Utensils },
   { name: "المكونات", href: "/dashboard/ingredients", icon: Package },
+  { name: "أقسام الأصناف", href: "/dashboard/categories", icon: Package },
   { name: "إعدادات الموقع", href: "/dashboard/settings", icon: Settings },
 ];
 
