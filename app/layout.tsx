@@ -6,6 +6,8 @@ import { DirectionProvider } from "@/components/ui/direction";
 import { Toaster } from "sonner";
 import Header from "@/components/Header";
 
+import NextTopLoader from "nextjs-toploader";
+
 const cairo = Cairo({ subsets: ["arabic"], variable: "--font-cairo" });
 
 export const metadata: Metadata = {
@@ -25,6 +27,8 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", cairo.className)}
     >
       <body className="min-h-full flex flex-col">
+        <NextTopLoader color="black" />
+
         <Toaster position="top-center" />
         <DirectionProvider dir="rtl">
           <Header />
