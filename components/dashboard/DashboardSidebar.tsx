@@ -2,15 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Utensils, Package, Settings, Menu, X } from "lucide-react";
+import { Utensils, Package, Settings, Menu, X, LayoutDashboard, LayoutGrid } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
-  { name: "لوحة التحكم", href: "/dashboard", icon: Utensils },
+  { name: "لوحة التحكم", href: "/dashboard", icon: LayoutDashboard },
   { name: "الأصناف", href: "/dashboard/items", icon: Utensils },
   { name: "المكونات", href: "/dashboard/ingredients", icon: Package },
-  { name: "أقسام الأصناف", href: "/dashboard/categories", icon: Package },
+  { name: "أقسام الأصناف", href: "/dashboard/categories", icon: LayoutGrid },
   { name: "إعدادات الموقع", href: "/dashboard/settings", icon: Settings },
 ];
 
