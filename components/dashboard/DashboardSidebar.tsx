@@ -2,7 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Utensils, Package, Settings, Menu, X, LayoutDashboard, LayoutGrid } from "lucide-react";
+import {
+  Utensils,
+  Package,
+  Settings,
+  Menu,
+  X,
+  LayoutDashboard,
+  LayoutGrid,
+} from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 

@@ -58,10 +58,10 @@ export default function ProductsFilteration() {
   return (
     <div className="flex flex-col space-y-8" dir="rtl">
       {/* Category Filters */}
-      <div className="flex flex-wrap justify-center md:justify-start gap-3">
+      <div className="md:flex sm:grid-cols-3 grid grid-cols-2 flex-wrap justify-start gap-3">
         <button
           onClick={() => setSelectedCategoryId(null)}
-          className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ease-in-out ${
+          className={`flex items-center gap-2 justify-center px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ease-in-out ${
             selectedCategoryId === null
               ? "bg-primary text-primary-foreground shadow-md scale-105"
               : "bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary"
@@ -82,7 +82,7 @@ export default function ProductsFilteration() {
           <button
             key={category.id}
             onClick={() => setSelectedCategoryId(category.id)}
-            className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ease-in-out ${
+            className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ease-in-out ${
               selectedCategoryId === category.id
                 ? "bg-primary text-primary-foreground shadow-md scale-105"
                 : "bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary"
