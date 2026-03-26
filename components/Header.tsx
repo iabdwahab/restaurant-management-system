@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/utils/supabase/server";
+import { logout } from "@/app/login/actions";
 
-export default function Header() {
+export default async function Header() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <header
       className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
@@ -14,9 +21,22 @@ export default function Header() {
           </span>
         </Link>
         <div className="flex items-center gap-4">
-          <Button asChild>
-            <Link href="/dashboard">لوحة التحكم</Link>
-          </Button>
+          {user ? (
+            <>
+              <Button asChild variant="outline">
+                <Link href="/dashboard">لوحة التحكم</Link>
+              </Button>
+              <form action={logout}>
+                <Button type="submit" variant="destructive">
+                  تسجيل الخروج
+                </Button>
+              </form>
+            </>
+          ) : (
+            <Button asChild>
+              <Link href="/login">تسجيل الدخول</Link>
+            </Button>
+          )}
         </div>
       </div>
     </header>
